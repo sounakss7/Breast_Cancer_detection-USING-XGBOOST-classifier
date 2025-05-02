@@ -93,13 +93,9 @@ This project aims to detect **breast cancer** using machine learning, specifical
 
 ## 📸 Screenshots
 
-### Web App UI
-
-![UI Screenshot](https://user-images.githubusercontent.com/placeholder/web-app-screenshot.png)
-
 ### Confusion Matrix
 
-![Confusion Matrix](https://user-images.githubusercontent.com/placeholder/confusion-matrix.png)
+![Confusion Matrix](confusion_matrix.png)
 
 
 ---
