@@ -5,4 +5,4 @@ matplotlib==3.6.2
 xgboost==1.7.3
 streamlit==1.15.2
 joblib==1.2.0
-
+altair==4.2.2
