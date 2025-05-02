@@ -95,7 +95,7 @@ This project aims to detect **breast cancer** using machine learning, specifical
 
 ### Confusion Matrix
 
-![Confusion Matrix](confusion_matrix.png)
+![Confusion Matrix](output.png)
 
 
 ---
