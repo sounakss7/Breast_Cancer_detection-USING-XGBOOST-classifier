@@ -104,5 +104,15 @@ This project aims to detect **breast cancer** using machine learning, specifical
 
 Created with ❤️ by [**Sounak**](https://github.com/sounakss7)
 Feel free to reach out via GitHub for issues or suggestions.
+## 📊 Project Reach
+
+Here’s a quick snapshot of how many people have shown interest in my work:
+
+| Repository | Total Clones | Unique Cloners |
+|------------|--------------|----------------|
+| [Breast_Cancer_detection-USING-XGBOOST-classifier](https://github.com/sounakss7/Breast_Cancer_detection-USING-XGBOOST-classifier) | 64 | 41 |
+
+> 🚀 Thank you to everyone who has explored and cloned my projects!  
+> I’m continuously working to share more impactful open-source work.
 
 
