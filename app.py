@@ -227,7 +227,7 @@ with tab_visualize:
 # ------------- TAB 4: MODEL PERFORMANCE -------------
 with tab_performance:
     st.header("📈 Technical Model Evaluation")
-    st.markdown("A breakdown of the XGBoost model's performance. Recruiters look for these metrics to validate model efficacy.")
+    st.markdown("A breakdown of the XGBoost model's performance")
     
     perf_col1, perf_col2 = st.columns(2)
     
