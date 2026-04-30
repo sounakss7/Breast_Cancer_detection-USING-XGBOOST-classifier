@@ -6,4 +6,5 @@ xgboost
 streamlit
 joblib
 altair
-
+plotly
+shap
