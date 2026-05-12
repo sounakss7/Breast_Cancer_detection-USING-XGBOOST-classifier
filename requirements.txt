@@ -9,5 +9,3 @@ joblib
 altair
 plotly
 shap
-fastapi
-uvicorn[standard]
