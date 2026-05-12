@@ -4,7 +4,10 @@ scikit-learn
 matplotlib
 xgboost
 streamlit
+requests
 joblib
 altair
 plotly
 shap
+fastapi
+uvicorn[standard]
