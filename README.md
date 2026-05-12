@@ -72,40 +72,6 @@ Unlike standard ML projects, this system incorporates **Explainable AI (XAI)** t
    ```
    *(The app will automatically open in your default browser at `http://localhost:8501`)*
 
-   Inside the Streamlit sidebar, choose **API backend** to send the prediction request to `http://localhost:8000/predict` or your custom backend URL.
-
-4. **Run the FastAPI backend**
-
-   ```bash
-   uvicorn main:app --reload --host 0.0.0.0 --port 8000
-   ```
-   Then open `http://localhost:8000/docs` for API docs.
-
----
-
-## 🐳 Docker Usage
-
-Build the Docker image:
-
-```bash
-docker build -t breast-cancer-api .
-```
-
-Run the backend container:
-
-```bash
-docker run --rm -p 8000:8000 breast-cancer-api
-```
-
-Run both services with Docker Compose:
-
-```bash
-docker compose up --build
-```
-
-The backend will be available at `http://localhost:8000` and the Streamlit UI at `http://localhost:8501`.
-
-When running with Docker Compose, the Streamlit app automatically uses the backend service host `http://backend:8000/predict` via the `BACKEND_URL` environment variable.
 
 ---
 
@@ -121,9 +87,6 @@ When running with Docker Compose, the Streamlit app automatically uses the backe
 
 ```
 ├── app.py                     # Main Streamlit web application with advanced UI
-├── main.py                    # FastAPI backend for prediction requests
-├── Dockerfile                 # Container image definition for backend and UI
-├── docker-compose.yml         # Compose setup for backend and Streamlit services
 ├── xgb_model.pkl              # Trained XGBoost model
 ├── scaler.pkl                 # StandardScaler for feature normalization
 ├── requirements.txt           # Python dependencies (Streamlit, XGBoost, SHAP, FastAPI, etc.)

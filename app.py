@@ -5,8 +5,6 @@ import numpy as np
 import pandas as pd
 import plotly.graph_objects as go
 import plotly.express as px
-import requests
-from requests.exceptions import RequestException
 from sklearn.datasets import load_breast_cancer
 from sklearn.metrics import roc_curve, auc, confusion_matrix
 import shap
@@ -69,19 +67,6 @@ def load_data():
     return df, data.feature_names, data.target
 
 
-def call_backend_predict(backend_url, features):
-    try:
-        response = requests.post(
-            backend_url,
-            json={"features": features},
-            timeout=10,
-        )
-        response.raise_for_status()
-        return response.json()
-    except RequestException as exc:
-        st.error(f"Backend request failed: {exc}")
-        return None
-
 try:
     model, scaler = load_models()
 except FileNotFoundError:
@@ -104,19 +89,6 @@ st.sidebar.image("https://cdn-icons-png.flaticon.com/512/3209/3209088.png", widt
 st.sidebar.title("ML Diagnostic System")
 st.sidebar.markdown("Powered by **XGBoost** and **SHAP** Explainable AI.")
 st.sidebar.markdown("---")
-
-DEFAULT_LOCAL_BACKEND_URL = "http://localhost:8000/predict"
-DEFAULT_DOCKER_BACKEND_URL = "http://backend:8000/predict"
-backend_default = os.getenv("BACKEND_URL") or (
-    DEFAULT_DOCKER_BACKEND_URL if os.path.exists("/.dockerenv") else DEFAULT_LOCAL_BACKEND_URL
-)
-
-prediction_mode = st.sidebar.radio("Prediction Mode", ["Local model", "API backend"], index=0)
-backend_url = st.sidebar.text_input(
-    "Backend URL",
-    value=backend_default,
-    help="Use http://backend:8000/predict when running with docker-compose.",
-)
 
 st.sidebar.subheader("Quick Testing")
 st.sidebar.markdown("Use the button below to instantly load a random patient from the dataset.")
@@ -155,27 +127,17 @@ with tab_predict:
             
     st.markdown("<br>", unsafe_allow_html=True)
     if st.button("🚀 Run Full Diagnostics", use_container_width=True):
-        feature_values = [st.session_state.user_inputs[f] for f in feature_names]
-        if prediction_mode == "API backend":
-            result = call_backend_predict(backend_url, feature_values)
-            if result is not None:
-                st.session_state.prediction = int(result["label"])
-                st.session_state.prob_benign = float(result["probabilities"]["benign"])
-                st.session_state.prob_malignant = float(result["probabilities"]["malignant"])
-                st.session_state.input_scaled = scaler.transform(np.array(feature_values).reshape(1, -1))
-                st.session_state.prediction_made = True
-        else:
-            input_array = np.array([st.session_state.user_inputs[f] for f in feature_names]).reshape(1, -1)
-            input_scaled = scaler.transform(input_array)
-            
-            pred = model.predict(input_scaled)[0]
-            prob = model.predict_proba(input_scaled)[0]
-            
-            st.session_state.prediction = pred
-            st.session_state.prob_benign = prob[1]
-            st.session_state.prob_malignant = prob[0]
-            st.session_state.input_scaled = input_scaled
-            st.session_state.prediction_made = True
+        input_array = np.array([st.session_state.user_inputs[f] for f in feature_names]).reshape(1, -1)
+        input_scaled = scaler.transform(input_array)
+        
+        pred = model.predict(input_scaled)[0]
+        prob = model.predict_proba(input_scaled)[0]
+        
+        st.session_state.prediction = pred
+        st.session_state.prob_benign = prob[1]
+        st.session_state.prob_malignant = prob[0]
+        st.session_state.input_scaled = input_scaled
+        st.session_state.prediction_made = True
         
     if st.session_state.prediction_made:
         st.markdown("---")
