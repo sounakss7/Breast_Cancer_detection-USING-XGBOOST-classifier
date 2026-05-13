@@ -96,7 +96,9 @@ st.sidebar.markdown("Use the button below to instantly load a random patient fro
 if st.sidebar.button("🎲 Load Random Patient", type="primary"):
     rand_idx = random.randint(0, len(df)-1)
     for f in feature_names:
-        st.session_state.user_inputs[f] = df.loc[rand_idx, f]
+        val = float(df.loc[rand_idx, f])
+        st.session_state.user_inputs[f] = val
+        st.session_state[f"in_{f}"] = val
     st.sidebar.success(f"Loaded Patient #{rand_idx} ({df.loc[rand_idx, 'target_name']})")
     st.session_state.prediction_made = False
 
